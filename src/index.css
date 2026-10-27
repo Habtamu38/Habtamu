@@ -1,0 +1,144 @@
+@import "tailwindcss";
+@import "./app/globals.css";
+
+@theme {
+  --font-sans: 'Manrope', 'Public Sans', 'Noto Sans Ethiopic', system-ui, -apple-system, sans-serif;
+  --font-display: 'Manrope', 'Plus Jakarta Sans', 'Noto Sans Ethiopic', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Noto Sans Ethiopic', monospace;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: #F8F9FE;
+    color: #20243A;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Hide print-only blocks (official signature & verification blocks) on screen */
+.print-only {
+  display: none;
+}
+
+/* Dedicated @media print rules for clean PDF exports of Student Results & Financial Statements */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 10mm;
+  }
+
+  html,
+  body {
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+    font-size: 11pt;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide navigation, forms, toolbars, modals, and non-printable interactive controls */
+  .no-print,
+  header,
+  aside,
+  nav,
+  button,
+  input,
+  select,
+  textarea,
+  [role="dialog"],
+  [data-testid="google-drive-database-panel"],
+  [data-testid="student-portal-bottom-nav"],
+  [data-testid="student-portal-overview"] {
+    display: none !important;
+  }
+
+  /* Reveal official signature & verification blocks on PDF export */
+  .print-only {
+    display: grid !important;
+  }
+
+  /* Expand main viewport and report containers to full A4 printable width */
+  main {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .print-report-grid {
+    display: block !important;
+  }
+
+  .print-report-grid > * {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 16pt !important;
+  }
+
+  .print-report-sheet,
+  .print-student-results,
+  .print-financial-statement {
+    width: 100% !important;
+    max-width: 100% !important;
+    border: 1px solid #CBD5E1 !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    background: #FFFFFF !important;
+    padding: 14pt !important;
+    margin: 0 0 14pt 0 !important;
+    break-inside: avoid-page;
+  }
+
+  /* Clean, crisp table formatting for Student Results & Financial Statements */
+  table,
+  .print-report-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 9.5pt !important;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tfoot {
+    display: table-footer-group;
+  }
+
+  tr,
+  .print-avoid-break {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  th,
+  td {
+    border-bottom: 1px solid #CBD5E1 !important;
+    padding: 6pt 5pt !important;
+    color: #0F172A !important;
+  }
+
+  thead th {
+    background-color: #F8FAFC !important;
+    border-top: 1px solid #CBD5E1 !important;
+    border-bottom: 1.5px solid #64748B !important;
+    font-weight: 700 !important;
+    color: #1E293B !important;
+  }
+
+  tfoot td {
+    background-color: #F1F5F9 !important;
+    border-top: 1.5px solid #475569 !important;
+    font-weight: 700 !important;
+  }
+}

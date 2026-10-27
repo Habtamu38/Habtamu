@@ -1,0 +1,1083 @@
+PROJECT: Ethiopian School Management System (ESMS)
+
+1. ROLE AND RESPONSIBILITY
+
+Act as a senior software architect, full-stack developer, Android developer, database engineer, UI/UX designer, cybersecurity specialist, and DevOps engineer.
+
+Build a production-ready, secure, scalable, multi-school School Management System for Ethiopia.
+
+Do not create only a demonstration or static prototype. Implement working features, database integration, authentication, authorization, validation, error handling, testing, and deployment documentation.
+
+Work incrementally. Start by analyzing requirements and designing the architecture. Then implement the system module by module, running tests and fixing errors at every stage.
+
+Never claim a feature is complete unless its implementation and tests support that claim.
+
+2. PROJECT OBJECTIVES
+
+The platform must:
+
+- Serve private and government schools in Ethiopia.
+- Support multiple schools on one platform.
+- Provide web applications and native Android applications.
+- Support Amharic and English.
+- Work with unreliable internet connections.
+- Support cloud hosting and optional local school servers.
+- Protect confidential student, parent, teacher, and financial records.
+- Generate professional reports in PDF and Excel formats.
+- Support Ethiopian Birr (ETB).
+- Support Ethiopian and Gregorian calendar display.
+- Be responsive on computers, tablets, and Android phones.
+- Allow future expansion to additional Ethiopian languages.
+
+3. REQUIRED TECHNOLOGY STACK
+
+Use the following technologies unless a documented technical limitation justifies a change.
+
+Web frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Accessible, reusable UI components
+- Internationalization for Amharic and English
+
+Android application
+
+- Flutter
+- Dart
+- Material Design
+- Secure local storage
+- SQLite for approved offline data
+- Background synchronization
+
+Backend
+
+- NestJS
+- TypeScript
+- REST API
+- OpenAPI/Swagger documentation
+- Server-side validation
+- Structured logging
+- Background jobs for notifications and report generation where appropriate
+
+Database
+
+- PostgreSQL
+- Prisma ORM
+- Database migrations
+- Foreign-key constraints
+- Indexes for frequently queried fields
+- Transactions for financial and academic operations
+
+Infrastructure
+
+- Docker
+- Docker Compose for development and suitable local deployments
+- Nginx or an equivalent reverse proxy
+- TLS/HTTPS for remote connections
+- Private object storage for uploaded documents
+- Automated database backups
+- CI/CD pipeline
+
+Testing
+
+- Jest or an equivalent TypeScript test framework
+- Flutter testing tools
+- API integration tests
+- End-to-end tests
+- Security and permission tests
+
+Use maintained, mutually compatible versions of all dependencies.
+
+4. SYSTEM ARCHITECTURE
+
+Build the system as a modular, multi-tenant application.
+
+The main components are:
+
+1. Web frontend
+2. Android application
+3. Backend API
+4. PostgreSQL database
+5. File storage
+6. Notification service
+7. Background job processor
+8. Cloud deployment
+9. Optional local school server
+10. Offline synchronization service
+
+Multi-school architecture
+
+Each school must have its own isolated data.
+
+Every school-owned database record must be associated with the correct school or tenant where applicable.
+
+Enforce tenant authorization on the server, not just in the user interface.
+
+A user from School A must never be able to access School B's records by changing a URL, request parameter, identifier, or API payload.
+
+The platform owner may manage school registration, subscriptions, platform configuration, and operational monitoring. Access to individual school records must remain restricted and auditable.
+
+Hybrid architecture
+
+The system must support two operating modes:
+
+Cloud mode
+
+- Users access the platform through the internet.
+- The cloud backend is the primary source of truth.
+- Data is stored centrally with appropriate backups.
+
+Hybrid mode
+
+- An optional local server provides approved school functions over the local network.
+- Supported operations remain available during internet outages.
+- Changes synchronize with the cloud after connectivity returns.
+- Synchronization errors are recorded and can be resolved safely.
+- Duplicate transactions and duplicate attendance records are prevented.
+
+Define explicitly which modules support offline operation.
+
+Do not assume that two independently writable databases can be merged automatically without conflicts. Design a versioned synchronization protocol with unique operation IDs, retry handling, conflict detection, and audit records.
+
+Financial and examination changes must have particularly strict consistency rules.
+
+5. USER ROLES AND PERMISSIONS
+
+Implement role-based access control with granular permissions.
+
+Platform Super Administrator
+
+- Register and manage schools.
+- Activate, suspend, or deactivate school subscriptions.
+- Manage platform-level configuration.
+- View service health and operational metrics.
+- Manage support access through controlled, audited procedures.
+
+School Administrator
+
+- Manage school profile and academic configuration.
+- Manage students, teachers, classes, and sections.
+- Assign school-level roles.
+- Access authorized reports.
+- Configure school policies.
+
+Principal or Director
+
+- View academic and operational dashboards.
+- Review attendance, examination results, and performance reports.
+- Approve designated academic actions.
+- Monitor school activities.
+
+Registrar
+
+- Register students.
+- Manage admissions and enrollment.
+- Maintain student records.
+- Manage transfers and withdrawals.
+
+Teacher
+
+- View assigned classes and subjects.
+- Record attendance.
+- Enter examination marks.
+- Manage assignments and authorized academic records.
+- View the performance of assigned students.
+
+Finance Officer
+
+- Create invoices.
+- Record payments.
+- Issue receipts.
+- Manage authorized expenses.
+- Generate financial reports.
+
+Librarian
+
+- Manage books and copies.
+- Record borrowing and returns.
+- Track overdue books.
+
+Student
+
+- View permitted personal information.
+- View attendance and published results.
+- View timetable and assignments.
+- View invoices and payment status where permitted.
+
+Parent or Guardian
+
+- View linked children's academic records.
+- View attendance and published results.
+- View invoices and receipts.
+- Receive school announcements.
+
+Other Staff
+
+Support configurable roles for receptionists, accountants, transport staff, department heads, and other authorized personnel.
+
+Implement permission checks for every protected API endpoint.
+
+6. SCHOOL REGISTRATION AND CONFIGURATION
+
+Create a school onboarding process that collects:
+
+- School name in English and Amharic
+- School code
+- School type
+- School level
+- Address and region
+- Contact information
+- Logo
+- Academic calendar preferences
+- Grade and section structure
+- Grading rules
+- School working days
+- School timezone
+- Currency
+- Language preferences
+
+Support configurable academic years, terms or semesters, grade levels, sections, and subjects.
+
+Do not hard-code one academic calendar or grading system for every school.
+
+7. DASHBOARD
+
+Build role-specific dashboards.
+
+Display relevant statistics such as:
+
+- Total enrolled students
+- Active teachers
+- Class and section counts
+- Daily attendance
+- Examination status
+- Outstanding invoices
+- Payments collected
+- Recent announcements
+- Pending approvals
+- Synchronization health
+
+Apply school and role permissions to every dashboard metric.
+
+Provide charts, date filters, school-year filters, and export options.
+
+8. STUDENT MANAGEMENT
+
+Implement:
+
+- Student registration
+- Unique student ID generation
+- Admission applications
+- Student profiles
+- Student photo uploads
+- Guardian information
+- Emergency contacts
+- Address information
+- Grade and section enrollment
+- Previous school information
+- Enrollment history
+- Transfer and withdrawal processing
+- Document attachments
+- Student status tracking
+- Student search and filtering
+- Bulk import from validated CSV or Excel files
+- Bulk export with permission checks
+
+Support Ethiopian names without requiring a Western-style first-name and last-name structure.
+
+Allow configurable name fields, including first name, father's name, and grandfather's name where appropriate.
+
+Validate imported records and show errors before committing the import.
+
+Do not silently overwrite existing student records.
+
+9. TEACHER AND STAFF MANAGEMENT
+
+Implement:
+
+- Staff registration
+- Staff ID generation
+- Personal and contact details
+- Qualifications
+- Employment information
+- Department assignment
+- Subject assignments
+- Class assignments
+- Employment status
+- Leave records
+- Attendance records
+- Authorized document uploads
+
+Restrict sensitive employment information to authorized roles.
+
+Keep salary and payroll features configurable and separate from general staff records.
+
+10. ACADEMIC MANAGEMENT
+
+Implement:
+
+- Academic years
+- Terms or semesters
+- Grade levels
+- Classes and sections
+- Subjects
+- Curriculum configuration
+- Teacher-subject assignments
+- Class timetables
+- Room allocation where required
+- Lesson schedules
+- Homework and assignments
+- Assignment deadlines
+- Academic calendar
+- Student promotion
+- Student transfer between sections
+- Academic history
+
+Prevent invalid duplicate enrollments and overlapping timetable assignments where applicable.
+
+11. ATTENDANCE MANAGEMENT
+
+Support attendance for students and staff.
+
+Student attendance statuses should include:
+
+- Present
+- Absent
+- Late
+- Excused
+
+Features:
+
+- Daily class attendance
+- Subject-based attendance where enabled
+- Attendance history
+- Date and class filters
+- Attendance summaries
+- Authorized corrections
+- Correction audit logs
+- Attendance reports
+- Parent notifications for configured events
+
+Use a unique attendance constraint appropriate to the school's attendance model to prevent duplicate records.
+
+Offline attendance must synchronize safely without creating duplicates.
+
+12. EXAMINATION AND RESULTS
+
+Implement:
+
+- Examination creation
+- Assessment categories
+- Subject-specific maximum marks
+- Continuous assessment
+- Assignments and quizzes
+- Midterm and final examinations
+- Mark entry
+- Mark validation
+- Configurable grading scales
+- Weighted calculations
+- Total marks
+- Percentages
+- Grade letters
+- Pass/fail rules
+- Subject rankings where permitted
+- Student report cards
+- Class performance reports
+- Result publication
+- Result revision and approval
+- Examination history
+
+All grading formulas must be configurable by school and academic year.
+
+Validate marks against configured limits.
+
+Prevent unauthorized changes after results are finalized.
+
+Maintain a complete audit trail for result changes.
+
+13. FINANCE AND FEES
+
+Implement:
+
+- Fee categories
+- Grade-specific fee structures
+- Academic-year fee schedules
+- Student invoices
+- Discounts
+- Scholarships
+- Authorized payment plans
+- Partial payments
+- Payment records
+- Receipts
+- Outstanding balances
+- Refund records
+- Expense records
+- Daily collection reports
+- Monthly financial summaries
+- Financial exports
+
+Use decimal-safe monetary calculations.
+
+Store currency codes and monetary amounts consistently.
+
+Record payment method, transaction reference, date, user, and related invoice.
+
+Prevent duplicate payment processing through idempotency controls.
+
+Never delete a completed financial transaction as if it never occurred. Use authorized reversal or correction entries with audit trails.
+
+Payment gateway integrations must be optional, documented, and use official provider APIs.
+
+Do not store card numbers, PINs, or banking credentials unnecessarily.
+
+14. PARENT AND STUDENT PORTALS
+
+Build separate, mobile-friendly portals.
+
+Parent portal
+
+- Linked student profiles
+- Attendance history
+- Published results
+- Timetables
+- School announcements
+- Invoices
+- Receipts
+- Authorized communication with school staff
+
+Student portal
+
+- Personal academic profile
+- Timetable
+- Assignments
+- Published results
+- Attendance
+- Announcements
+- Fee status where permitted
+
+Require verified, authorized relationships between guardians and students.
+
+Do not expose one family's records to another family.
+
+15. NOTIFICATIONS
+
+Implement in-app notifications and configurable notification channels.
+
+Support:
+
+- School announcements
+- Absence alerts
+- Examination announcements
+- Result publication
+- Fee reminders
+- Payment receipts
+- Timetable changes
+
+Make SMS, email, and push notification providers configurable.
+
+Record notification status and failures.
+
+Avoid sending duplicate notifications when background jobs retry.
+
+Respect privacy, notification preferences, and applicable consent requirements.
+
+16. LIBRARY MANAGEMENT
+
+Implement:
+
+- Book catalog
+- ISBN where available
+- Authors and publishers
+- Book categories
+- Multiple copies
+- Copy identification
+- Borrowing
+- Returns
+- Due dates
+- Overdue tracking
+- Lost or damaged book records
+- Authorized fines
+- Inventory reports
+
+Prevent the same book copy from being checked out to multiple borrowers simultaneously.
+
+17. TRANSPORT MANAGEMENT
+
+Provide an optional transport module.
+
+Implement:
+
+- Vehicles
+- Vehicle registration details
+- Drivers
+- Authorized transport staff
+- Routes
+- Stops
+- Student route assignments
+- Transport fee configuration
+- Capacity monitoring
+- Vehicle and route reports
+
+Restrict children's transport information to authorized users.
+
+18. INVENTORY AND ASSETS
+
+Implement:
+
+- Asset registration
+- Asset categories
+- School equipment records
+- Assignment to departments or locations
+- Purchase records
+- Maintenance history
+- Stock movements
+- Low-stock alerts
+- Inventory reports
+
+Use audit logs for sensitive inventory changes.
+
+19. REPORTS AND EXPORTS
+
+Provide permission-controlled reports for:
+
+- Student enrollment
+- Admissions
+- Attendance
+- Examination results
+- Academic performance
+- Student promotion
+- Teacher and staff records
+- Fees and payments
+- Outstanding balances
+- Expenses
+- Library circulation
+- Transport
+- Inventory
+
+Support PDF and Excel exports.
+
+Use school branding and configurable report headers.
+
+Support Amharic and English report output.
+
+Verify font support and rendering for Ethiopic script in generated PDFs.
+
+Provide print-friendly layouts.
+
+Large reports should run as background jobs rather than blocking API requests.
+
+20. LANGUAGE AND CALENDAR SUPPORT
+
+Provide English and Amharic interfaces.
+
+Implement a translation system using resource files rather than hard-coded UI text.
+
+Support:
+
+- Language switching
+- Amharic labels
+- English labels
+- Ethiopic Unicode text
+- Correct text input and display
+- Localized dates
+- Configurable date display
+- Ethiopian and Gregorian calendar conversion
+- Timezone-aware timestamps
+- ETB currency formatting
+
+Store timestamps and dates using consistent database conventions.
+
+Use a tested calendar-conversion library or a thoroughly tested implementation. Include tests for leap years, year boundaries, and conversion edge cases.
+
+Do not confuse the calendar used for display with the canonical date stored in the database.
+
+21. OFFLINE MODE AND SYNCHRONIZATION
+
+Offline support is a core requirement, not an optional future enhancement.
+
+The Android app must cache only the data required by the authenticated user and authorized offline workflows.
+
+Where enabled, local school servers must provide selected functions during internet outages.
+
+Design synchronization with:
+
+- Unique record identifiers
+- Unique operation identifiers
+- Change tracking
+- Version numbers
+- Timestamps
+- Retry handling
+- Idempotent API operations
+- Conflict detection
+- Conflict resolution rules
+- Sync status indicators
+- Failed-sync queues
+- Audit records
+- Recovery after app restart
+- Secure local data storage
+
+Define which system owns each data type.
+
+For example, attendance entries may be created offline and synchronized later, while published examination results and finalized financial records require controlled workflows.
+
+Do not use a simplistic last-write-wins strategy for all records.
+
+Never silently discard a user's unsynchronized changes.
+
+Protect locally cached information and provide secure logout behavior.
+
+Document how a local school server is paired with the cloud platform and how devices authenticate to it.
+
+22. SECURITY AND PRIVACY
+
+Implement:
+
+- Secure authentication
+- Password hashing using a modern password-hashing algorithm
+- Role-based access control
+- Tenant-level data isolation
+- Server-side authorization
+- Input validation
+- Output encoding
+- Rate limiting
+- Secure session or token management
+- Secure password reset
+- Account lockout or throttling protections
+- Multi-factor authentication for privileged accounts where practical
+- HTTPS for remote access
+- Secure secret management
+- File type and size validation
+- Malware scanning for uploaded files where available
+- Protection against common web vulnerabilities
+- Audit logging
+- Session revocation
+- Dependency vulnerability checks
+- Database least-privilege access
+- Encryption in transit
+- Appropriate encryption at rest
+- Backup protection
+- Security event monitoring
+
+Never put passwords, API secrets, access tokens, or private keys in source code.
+
+Never trust school IDs or user roles supplied by the client without server-side verification.
+
+Avoid logging passwords, authentication tokens, or unnecessary sensitive personal information.
+
+Develop a data-retention policy and a process for correcting records and handling authorized data deletion.
+
+Review Ethiopian legal and regulatory requirements relevant to student data, privacy, education records, electronic transactions, and payment processing before production deployment.
+
+23. DATABASE DESIGN
+
+Design a normalized PostgreSQL schema using Prisma.
+
+Include entities for:
+
+- School
+- SchoolSettings
+- SchoolSubscription
+- User
+- Role
+- Permission
+- UserRole
+- Student
+- Guardian
+- StudentGuardian
+- StudentEnrollment
+- Teacher
+- Staff
+- Department
+- AcademicYear
+- Term
+- GradeLevel
+- ClassSection
+- Subject
+- TeacherAssignment
+- Timetable
+- AttendanceRecord
+- Examination
+- Assessment
+- StudentMark
+- GradingScale
+- ResultPublication
+- FeeCategory
+- FeeStructure
+- Invoice
+- InvoiceItem
+- Payment
+- PaymentAllocation
+- Refund
+- Expense
+- Notification
+- Announcement
+- Assignment
+- AssignmentSubmission
+- LibraryBook
+- LibraryCopy
+- BookLoan
+- Vehicle
+- TransportRoute
+- TransportStop
+- StudentTransportAssignment
+- InventoryItem
+- Asset
+- UploadedDocument
+- AuditLog
+- SyncOperation
+- SyncConflict
+- DeviceRegistration
+
+Add necessary join tables, indexes, unique constraints, foreign keys, timestamps, and school ownership fields.
+
+Use database transactions for operations involving multiple related records.
+
+Use soft deletion only where appropriate. Do not use it to erase financial or audit history.
+
+Generate and maintain Prisma migrations.
+
+Provide an entity relationship diagram and explain important design decisions.
+
+24. API DESIGN
+
+Use a versioned REST API, such as "/api/v1".
+
+Organize endpoints by module.
+
+Examples:
+
+- "/api/v1/auth"
+- "/api/v1/schools"
+- "/api/v1/students"
+- "/api/v1/guardians"
+- "/api/v1/teachers"
+- "/api/v1/academic-years"
+- "/api/v1/classes"
+- "/api/v1/subjects"
+- "/api/v1/attendance"
+- "/api/v1/examinations"
+- "/api/v1/results"
+- "/api/v1/invoices"
+- "/api/v1/payments"
+- "/api/v1/reports"
+- "/api/v1/notifications"
+- "/api/v1/sync"
+
+Implement:
+
+- Pagination
+- Sorting
+- Filtering
+- Consistent error responses
+- Request validation
+- Authentication
+- Authorization
+- API versioning
+- Rate limiting
+- Idempotency for appropriate operations
+- OpenAPI documentation
+
+Use appropriate HTTP status codes.
+
+Do not expose internal stack traces or confidential information to clients.
+
+25. USER INTERFACE DESIGN
+
+Create a professional, modern, accessible interface.
+
+Requirements:
+
+- Responsive layouts
+- Sidebar navigation on larger screens
+- Mobile-friendly navigation
+- Clear dashboard cards
+- Tables with search and filters
+- Pagination
+- Forms with validation
+- Helpful loading and empty states
+- Clear error messages
+- Confirmation dialogs for sensitive operations
+- Keyboard accessibility
+- Readable typography
+- Amharic and English support
+- Consistent design system
+- Light and dark themes where practical
+
+Use fictional sample data only in development and demonstrations.
+
+Provide an onboarding flow that helps a school administrator configure the school.
+
+26. PERFORMANCE AND RELIABILITY
+
+Design the system to support growth from a small school to a large multi-school platform.
+
+Establish measurable performance targets.
+
+Use database indexes, pagination, efficient queries, caching where appropriate, and background processing for expensive operations.
+
+Avoid loading all students or attendance records into memory for large reports.
+
+Include health-check endpoints and operational monitoring.
+
+Plan for:
+
+- Service failures
+- Network interruptions
+- Database outages
+- Interrupted synchronization
+- Backup restoration
+- Failed background jobs
+- Storage exhaustion
+- Expired credentials
+- Unauthorized requests
+
+Provide documented backup schedules, retention policies, and restoration procedures.
+
+Test restoration from backups; do not assume that a successful backup job guarantees recoverability.
+
+27. TESTING REQUIREMENTS
+
+Write tests for:
+
+- Authentication
+- Authorization
+- School data isolation
+- Student registration
+- Enrollment rules
+- Attendance
+- Examination calculations
+- Grade boundaries
+- Invoice calculations
+- Partial payments
+- Payment idempotency
+- Financial reversals
+- PDF and Excel exports
+- Amharic text rendering
+- Calendar conversion
+- Offline data creation
+- Synchronization retries
+- Conflict handling
+- Unauthorized access
+- Data backup and restoration procedures
+
+Include integration tests and end-to-end tests for the most important user workflows.
+
+Test that one school's users cannot access another school's data.
+
+Test offline behavior with realistic internet interruptions.
+
+28. PROJECT STRUCTURE
+
+Use a maintainable monorepo or clearly separated repositories.
+
+An example monorepo:
+
+school-management-system/
+apps/
+web/
+mobile/
+api/
+packages/
+shared-types/
+api-client/
+configuration/
+infrastructure/
+docker/
+nginx/
+deployment/
+docs/
+architecture/
+database/
+api/
+security/
+operations/
+tests/
+README.md
+.env.example
+
+Adapt the structure to the selected tools while keeping responsibilities clearly separated.
+
+Never commit real secrets to the repository.
+
+29. REQUIRED DELIVERABLES
+
+Produce:
+
+1. Software requirements specification
+2. Architecture diagram
+3. Database schema
+4. Entity relationship diagram
+5. Prisma schema and migrations
+6. NestJS backend
+7. Next.js web application
+8. Flutter Android application
+9. API documentation
+10. Authentication and authorization
+11. School onboarding workflow
+12. Core academic modules
+13. Attendance and examination modules
+14. Finance module
+15. PDF and Excel reporting
+16. Amharic and English translations
+17. Offline synchronization implementation
+18. Docker development environment
+19. Cloud deployment instructions
+20. Optional local-server installation instructions
+21. Automated tests
+22. Backup and recovery procedures
+23. Security documentation
+24. Administrator user guide
+25. Teacher and parent user guides
+26. Production deployment checklist
+
+Document any feature that remains incomplete.
+
+30. IMPLEMENTATION PHASES
+
+Do not attempt to build everything in a single untested code-generation step.
+
+Phase 1: Planning
+
+- Confirm requirements.
+- Identify assumptions.
+- Create architecture diagrams.
+- Define the database.
+- Create the development plan.
+- Document security and synchronization risks.
+
+Phase 2: Foundation
+
+- Initialize repositories.
+- Configure development environments.
+- Set up PostgreSQL and Prisma.
+- Implement authentication.
+- Implement school registration.
+- Implement tenant isolation.
+- Build the first responsive dashboard.
+
+Phase 3: Core School Management
+
+- Students
+- Guardians
+- Teachers and staff
+- Academic years
+- Classes and sections
+- Subjects
+- Enrollment
+
+Phase 4: Academic Operations
+
+- Attendance
+- Timetables
+- Assignments
+- Examinations
+- Marks
+- Results
+- Report cards
+
+Phase 5: Finance
+
+- Fee structures
+- Invoices
+- Payments
+- Receipts
+- Financial reports
+- Reversal workflows
+
+Phase 6: Portals and Communication
+
+- Parent portal
+- Student portal
+- Announcements
+- Notifications
+
+Phase 7: Android
+
+- Authentication
+- Student and teacher workflows
+- Attendance
+- Results
+- Notifications
+- Local database
+- Offline operation
+
+Phase 8: Hybrid Synchronization
+
+- Local server
+- Device registration
+- Sync protocol
+- Conflict handling
+- Recovery tests
+
+Phase 9: Additional Modules
+
+- Library
+- Transport
+- Inventory
+- Advanced reporting
+
+Phase 10: Production Readiness
+
+- Security testing
+- Performance testing
+- Backup restoration testing
+- Monitoring
+- Deployment
+- Documentation
+- User acceptance testing
+
+31. ACCEPTANCE CRITERIA
+
+The project is not ready for production until:
+
+- Authorized users can sign in and sign out securely.
+- School administrators can configure their schools.
+- Multiple schools can use the platform without cross-school data leakage.
+- Student and teacher records can be created, edited, searched, and exported according to permissions.
+- Attendance can be recorded without duplicate entries.
+- Examination calculations match configured grading rules.
+- Financial transactions are consistent and auditable.
+- Parents can access only the students linked to their accounts.
+- Amharic and English interfaces work correctly.
+- Reports render Ethiopic text correctly.
+- Offline workflows preserve unsynchronized changes.
+- Synchronization retries do not create duplicate transactions.
+- Automated tests pass.
+- Backup restoration has been tested.
+- Production configuration does not contain development secrets.
+- Deployment and recovery instructions are complete.
+- All incomplete features are documented.
+
+32. HOW THE AI DEVELOPER MUST WORK
+
+Start by producing:
+
+1. A concise architecture proposal.
+2. A list of assumptions and unresolved decisions.
+3. A complete database design.
+4. A phased implementation plan.
+5. A repository structure.
+6. A risk assessment covering tenant isolation, security, offline synchronization, and financial consistency.
+
+Then begin implementing Phase 1 and Phase 2.
+
+For each implementation task:
+
+- Explain the goal briefly.
+- Identify the files being created or changed.
+- Provide complete, runnable code.
+- Include configuration and database migrations.
+- Add tests.
+- Run the available checks.
+- Fix reported errors before proceeding.
+- Document setup and verification steps.
+
+Do not replace working implementations with pseudocode, mock endpoints, or buttons that do nothing.
+
+Do not claim to have deployed the application unless deployment was actually performed and verified.
+
+If a task exceeds the available context or execution environment, break it into smaller, testable steps and clearly identify the next step.
+
+The final goal is a secure, maintainable, production-ready Ethiopian School Management System that can be developed incrementally and operated by real schools.

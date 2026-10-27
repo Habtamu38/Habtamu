@@ -1,0 +1,41 @@
+{
+  "Auth": {
+    "welcomeBack": "እንኳን ደህና መጡ",
+    "subtitle": "የስማርትለርን ኢትዮጵያ ትምህርት ጉዞዎን ለመቀጠል ይግቡ",
+    "email": "የኢሜይል አድራሻ",
+    "emailPlaceholder": "የኢሜይል አድራሻ ያስገቡ",
+    "password": "የይለፍ ቃል",
+    "passwordPlaceholder": "የይለፍ ቃል ያስገቡ",
+    "showPassword": "የይለፍ ቃል አሳይ",
+    "hidePassword": "የይለፍ ቃል ደብቅ",
+    "rememberMe": "አስታውሰኝ",
+    "forgotPassword": "የይለፍ ቃል ረሱ?",
+    "forgotPasswordTooltip": "በሲስተም አስተዳዳሪ በኩል የይለፍ ቃል መልሶ ማግኛ ለመጠየቅ ይጫኑ።",
+    "forgotPasswordModalTitle": "የይለፍ ቃል መልሶ ማግኛ (በአስተዳዳሪ)",
+    "forgotPasswordModalIntro": "የይለፍ ቃልዎን ወይም ባለ 6-አሃዝ መለያ ኮድዎን በሲስተም አስተዳዳሪው በኩል ለማስጀመር የተመዘገበውን የኢሜይል አድራሻዎን ከታች ያስገቡ።",
+    "forgotPasswordEmailLabel": "የተመዘገበ የኢሜይል አድራሻ",
+    "forgotPasswordEmailPlaceholder": "የተመዘገበ ኢሜይልዎን ያስገቡ (ምሳሌ፦ student@bolesecondary.edu.et)",
+    "forgotPasswordSubmitButton": "ለአስተዳዳሪው ጥያቄ ላክ",
+    "forgotPasswordSubmitting": "በመላክ ላይ…",
+    "forgotPasswordSuccessMessage": "የይለፍ ቃል መልሶ ማግኛ ጥያቄዎ ለሲስተም አስተዳዳሪው (habteofat@gmail.com) ተመዝግቧል። አዲሱን ባለ 6-አሃዝ ኮድ ለመቀበል አስተዳዳሪውን ያነጋግሩ።",
+    "forgotPasswordStep1": "1. የተመዘገበውን የኢሜይል አድራሻዎን ከላይ አስገብተው ለሲስተም አስተዳዳሪው ጥያቄ ይላኩ።",
+    "forgotPasswordStep2": "2. አስተዳዳሪው መታወቂያዎን አረጋግጠው ባለ 6-አሃዝ የመግቢያ ኮድዎን (STU, TEA, FIN ወይም LIN) ያድሳሉ።",
+    "forgotPasswordStep3": "3. በአስተዳዳሪው በተሰጠዎት አዲስ የይለፍ ቃል ወይም ባለ 6-አሃዝ ኮድ ወደ ሲስተሙ ይግቡ።",
+    "forgotPasswordAdminContactLabel": "የሲስተም አስተዳዳሪ አድራሻ",
+    "forgotPasswordClose": "ተረድቻለሁ፣ ወደ መግቢያ ተመለስ",
+    "login": "ግባ",
+    "signingIn": "በመግባት ላይ…",
+    "themeToggleLabel": "የጨለማ ገጽታ በቅርቡ ይጀምራል",
+    "languageToggleLabel": "ቋንቋ በእንግሊዝኛ እና በአማርኛ መካከል ቀይር",
+    "logoAlt": "የስማርትለርን ኢትዮጵያ አርማ"
+  },
+  "Errors": {
+    "invalidEmail": "እባክዎ ትክክለኛ የኢሜይል አድራሻ ወይም በአስተዳዳሪ የተመዘገበ መለያ ኮድ ያስገቡ።",
+    "invalidPassword": "እባክዎ የይለፍ ቃልዎን ያስገቡ (ቢያንስ 4 ቁምፊዎች)።",
+    "invalidCredentials": "በአስተዳዳሪ ሲስተም ውስጥ የተመዘገቡ ኢሜይሎች ወይም ባለ 6-አሃዝ ኮዶች ብቻ መግባት ይችላሉ።"
+  },
+  "Footer": {
+    "tagline": "ይማሩ • ይለማመዱ • ይደጉ",
+    "cornerNote": "ስማርትለርን ኢትዮጵያ"
+  }
+}

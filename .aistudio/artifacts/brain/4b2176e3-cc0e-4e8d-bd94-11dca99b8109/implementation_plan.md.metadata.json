@@ -1,0 +1,6 @@
+{
+  "summary":  "Implementation plan for adding a top-right English/Amharic language toggle and persistent Remember Me identifier storage on the Login Page, plus full Google Drive Database Snapshot Export/Import integration in a dedicated 'ESMS Database' folder in My Drive.",
+  "updatedAt":  "2026-10-27T04:20:48.969193600Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

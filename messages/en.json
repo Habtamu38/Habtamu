@@ -1,0 +1,41 @@
+{
+  "Auth": {
+    "welcomeBack": "Welcome Back",
+    "subtitle": "Sign in to continue your SmartLearn Ethiopia journey",
+    "email": "Email address",
+    "emailPlaceholder": "Email address",
+    "password": "Password",
+    "passwordPlaceholder": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "rememberMe": "Remember Me",
+    "forgotPassword": "Forgot Password?",
+    "forgotPasswordTooltip": "Click to request a password recovery via your school system administrator.",
+    "forgotPasswordModalTitle": "Password Recovery via System Admin",
+    "forgotPasswordModalIntro": "Enter your registered email address below to submit a password or 6-digit access code recovery request to the System Administrator.",
+    "forgotPasswordEmailLabel": "Registered Email Address",
+    "forgotPasswordEmailPlaceholder": "Enter your registered email (e.g. student@bolesecondary.edu.et)",
+    "forgotPasswordSubmitButton": "Request Recovery via Admin",
+    "forgotPasswordSubmitting": "Submitting request…",
+    "forgotPasswordSuccessMessage": "Your password recovery request has been logged for the System Administrator (habteofat@gmail.com). Please contact the Admin office to receive your updated 6-digit access code.",
+    "forgotPasswordStep1": "1. Submit your registered email address above so the System Administrator is notified.",
+    "forgotPasswordStep2": "2. The Administrator verifies your school ID and resets your 6-digit role access code (STU, TEA, FIN, or LIN).",
+    "forgotPasswordStep3": "3. Sign in with the newly issued password or 6-digit access code provided by the administrator.",
+    "forgotPasswordAdminContactLabel": "System Administrator Contact",
+    "forgotPasswordClose": "Got it, back to Login",
+    "login": "Login",
+    "signingIn": "Signing in…",
+    "themeToggleLabel": "Dark mode coming soon",
+    "languageToggleLabel": "Switch language between English and Amharic",
+    "logoAlt": "SmartLearn Ethiopia logo"
+  },
+  "Errors": {
+    "invalidEmail": "Please enter a valid email address or admin-registered access code.",
+    "invalidPassword": "Please enter your password (at least 4 characters).",
+    "invalidCredentials": "Only emails or 6-digit access codes registered in the Admin system can log in."
+  },
+  "Footer": {
+    "tagline": "LEARN • PRACTISE • GROW",
+    "cornerNote": "SMARTLEARN ETHIOPIA"
+  }
+}

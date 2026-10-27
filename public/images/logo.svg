@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none" role="img" aria-label="SmartLearn Ethiopia Logo">
+  <defs>
+    <linearGradient id="slWavePrimary" x1="16" y1="24" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B6EF5" />
+      <stop offset="100%" stop-color="#1E4FD8" />
+    </linearGradient>
+    <linearGradient id="slWaveSecondary" x1="28" y1="44" x2="104" y2="98" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7DD3FC" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+  </defs>
+  <!-- Back softer blue wave -->
+  <path
+    d="M24 68C32 50 48 44 64 54C78 62 90 56 98 42C101 37 106 41 104 48C96 74 74 88 52 80C38 75 28 78 22 86C18 90 18 80 24 68Z"
+    fill="url(#slWaveSecondary)"
+    opacity="0.88"
+  />
+  <!-- Front royal blue overlapping wave -->
+  <path
+    d="M18 52C28 32 48 28 66 40C80 49 92 43 100 28C103 23 108 27 105 35C95 62 72 76 48 66C34 60 24 64 17 72C13 76 12 64 18 52Z"
+    fill="url(#slWavePrimary)"
+  />
+</svg>
